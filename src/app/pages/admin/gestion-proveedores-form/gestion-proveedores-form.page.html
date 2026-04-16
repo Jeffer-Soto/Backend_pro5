@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/admin/gestion-proveedores"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ esEdicion ? 'Editar Proveedor' : 'Nuevo Proveedor' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="guardar()">Guardar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-item>
+    <ion-label position="floating">Nombre *</ion-label>
+    <ion-input 
+      [(ngModel)]="proveedor.nombre" 
+      placeholder="Ej: Marvel Comics">
+    </ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Correo</ion-label>
+    <ion-input 
+      type="email"
+      [(ngModel)]="proveedor.correo" 
+      placeholder="correo@ejemplo.com">
+    </ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Teléfono</ion-label>
+    <ion-input 
+      type="tel"
+      [(ngModel)]="proveedor.telefono" 
+      placeholder="88888888">
+    </ion-input>
+  </ion-item>
+
+  <div style="padding: 16px;">
+    <ion-button expand="block" color="primary" (click)="guardar()">
+      {{ esEdicion ? 'Actualizar Proveedor' : 'Agregar Proveedor' }}
+    </ion-button>
+  </div>
+
+</ion-content>

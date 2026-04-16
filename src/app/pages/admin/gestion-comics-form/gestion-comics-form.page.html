@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/admin/gestion-comics"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ esEdicion ? 'Editar Comic' : 'Nuevo Comic' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="guardar()">Guardar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-item>
+    <ion-label position="floating">Nombre *</ion-label>
+    <ion-input [(ngModel)]="comic.nombre" placeholder="Ej: Spider-Man #1"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Edición</ion-label>
+    <ion-input [(ngModel)]="comic.edicion" placeholder="Ej: Primera Edición"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Número de Saga</ion-label>
+    <ion-input [(ngModel)]="comic.numeroSaga" placeholder="Ej: 1"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">URL de Portada</ion-label>
+    <ion-input [(ngModel)]="comic.portada" placeholder="https://..."></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Versión</ion-label>
+    <ion-select [(ngModel)]="comic.version" placeholder="Seleccionar">
+      <ion-select-option value="normal">Normal</ion-select-option>
+      <ion-select-option value="coleccionable">Coleccionable</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Valor Base (₡) *</ion-label>
+    <ion-input type="number" [(ngModel)]="comic.valorBase" placeholder="0"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Precio Final (₡) *</ion-label>
+    <ion-input type="number" [(ngModel)]="comic.precioFinal" placeholder="0"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Stock</ion-label>
+    <ion-input type="number" [(ngModel)]="comic.stock" placeholder="0"></ion-input>
+  </ion-item>
+
+  <div style="padding: 16px;">
+    <ion-button expand="block" color="primary" (click)="guardar()">
+      {{ esEdicion ? 'Actualizar Comic' : 'Agregar Comic' }}
+    </ion-button>
+  </div>
+
+</ion-content>

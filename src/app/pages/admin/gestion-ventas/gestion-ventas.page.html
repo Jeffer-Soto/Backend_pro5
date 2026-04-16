@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/admin/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Gestión de Ventas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <!-- Total general -->
+  <div class="total-container">
+    <h2>Total en Ventas</h2>
+    <h1>₡{{ totalVentas }}</h1>
+  </div>
+
+  <ion-list>
+    @for(venta of ventas; track venta.id){
+      <ion-item>
+        <ion-icon name="receipt-outline" slot="start" color="warning"></ion-icon>
+        <ion-label>
+          <h2>Venta #{{ venta.id }}</h2>
+          <p>Subtotal: ₡{{ venta.subtotal }}</p>
+          <p>Impuesto: ₡{{ venta.impuesto }}</p>
+          <p><strong>Total: ₡{{ venta.total }}</strong></p>
+          <ion-badge color="primary">{{ venta.moneda }}</ion-badge>
+        </ion-label>
+
+        <ion-button slot="end" fill="clear" color="danger" (click)="eliminar(venta)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    }
+
+    @if(ventas.length === 0){
+      <ion-item>
+        <ion-label class="ion-text-center">
+          <p>No hay ventas registradas</p>
+        </ion-label>
+      </ion-item>
+    }
+  </ion-list>
+
+</ion-content>

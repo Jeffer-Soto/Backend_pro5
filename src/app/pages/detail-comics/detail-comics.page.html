@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/cliente/list-comics"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalle del Comic</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="irAlCarrito()">
+        <ion-icon slot="icon-only" name="bag-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  @if(comic){
+    <ion-card>
+      @if(comic.portada){
+        <ion-img [src]="comic.portada" />
+      }
+
+      <ion-card-header>
+        <ion-card-title>{{ comic.nombre }}</ion-card-title>
+        <ion-card-subtitle>{{ comic.edicion }}</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+
+        <p>
+          <ion-text color="warning"><strong>Precio: </strong></ion-text>
+          <ion-text>₡{{ comic.precioFinal }}</ion-text>
+        </p>
+
+        <p>
+          <ion-text color="warning"><strong>Saga: </strong></ion-text>
+          <ion-text>{{ comic.numeroSaga }}</ion-text>
+        </p>
+
+        <p>
+          <ion-text color="warning"><strong>Versión: </strong></ion-text>
+          <ion-badge [color]="comic.version === 'coleccionable' ? 'warning' : 'primary'">
+            {{ comic.version }}
+          </ion-badge>
+        </p>
+
+        <p>
+          <ion-text color="warning"><strong>Stock: </strong></ion-text>
+          <ion-text>{{ comic.stock }} unidades</ion-text>
+        </p>
+
+        <div style="margin-top: 20px;">
+          <ion-button 
+            expand="block" 
+            color="success"
+            [disabled]="comic.stock === 0"
+            (click)="agregarAlCarrito()">
+            <ion-icon slot="start" name="cart-outline"></ion-icon>
+            {{ comic.stock === 0 ? 'Sin Stock' : 'Agregar al Carrito' }}
+          </ion-button>
+
+          <ion-button
+            expand="block"
+            color="primary"
+            style="margin-top: 10px;"
+            (click)="irAlCarrito()">
+            <ion-icon slot="start" name="bag-outline"></ion-icon>
+            Ver Carrito
+          </ion-button>
+        </div>
+
+      </ion-card-content>
+    </ion-card>
+  }@else{
+    <p style="text-align:center; color:white; margin-top:20px;">Cargando...</p>
+  }
+
+</ion-content>

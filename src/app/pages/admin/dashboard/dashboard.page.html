@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Panel Admin</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarSesion()">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div class="welcome">
+    <h2>👋 Bienvenido, Admin</h2>
+    <p>¿Qué deseas gestionar hoy?</p>
+  </div>
+
+  <ion-grid>
+    <ion-row>
+
+      <!-- Comics -->
+      <ion-col size="6">
+        <ion-card (click)="irA('/admin/gestion-comics')">
+          <ion-card-content class="card-menu">
+            <ion-icon name="book-outline" class="menu-icon"></ion-icon>
+            <ion-card-title>Comics</ion-card-title>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Usuarios -->
+      <ion-col size="6">
+        <ion-card (click)="irA('/admin/gestion-usuarios')">
+          <ion-card-content class="card-menu">
+            <ion-icon name="people-outline" class="menu-icon"></ion-icon>
+            <ion-card-title>Usuarios</ion-card-title>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Ventas -->
+      <ion-col size="6">
+        <ion-card (click)="irA('/admin/gestion-ventas')">
+          <ion-card-content class="card-menu">
+            <ion-icon name="cart-outline" class="menu-icon"></ion-icon>
+            <ion-card-title>Ventas</ion-card-title>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Proveedores -->
+      <ion-col size="6">
+        <ion-card (click)="irA('/admin/gestion-proveedores')">
+          <ion-card-content class="card-menu">
+            <ion-icon name="business-outline" class="menu-icon"></ion-icon>
+            <ion-card-title>Proveedores</ion-card-title>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

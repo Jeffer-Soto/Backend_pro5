@@ -1,0 +1,142 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/admin/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Gestión de Usuarios</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="abrirModal()">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-list>
+    @for(usuario of usuarios; track usuario.id){
+      <ion-item>
+        <ion-icon name="person-outline" slot="start" color="primary"></ion-icon>
+        <ion-label>
+          <h2>{{ usuario.usuarioNombre }}</h2>
+          <p>{{ usuario.correo }}</p>
+          <p>Edad: {{ usuario.edad }}</p>
+          <ion-badge [color]="colorRol(usuario.rol)">{{ usuario.rol }}</ion-badge>
+        </ion-label>
+        <!-- Botón editar rol -->
+        <ion-button slot="end" fill="clear" color="primary" (click)="abrirModalEditar(usuario)">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-button>
+        <!-- Botón eliminar -->
+        <ion-button slot="end" fill="clear" color="danger" (click)="eliminar(usuario)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    }
+
+    @if(usuarios.length === 0){
+      <ion-item>
+        <ion-label class="ion-text-center">
+          <p>No hay usuarios registrados</p>
+        </ion-label>
+      </ion-item>
+    }
+  </ion-list>
+
+  <!-- MODAL CREAR USUARIO -->
+  <ion-modal [isOpen]="modalAbierto" (didDismiss)="cerrarModal()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-buttons slot="start">
+            <ion-button (click)="cerrarModal()">Cancelar</ion-button>
+          </ion-buttons>
+          <ion-title>Nuevo Usuario</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="guardarUsuario()" strong>Guardar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="modal-content">
+        <ion-list>
+          <ion-item>
+            <ion-input label="Nombre de usuario" labelPlacement="floating"
+              type="text" placeholder="ej: juan123"
+              [(ngModel)]="nuevoUsuario.usuarioNombre">
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Correo" labelPlacement="floating"
+              type="email" placeholder="ej: juan@correo.com"
+              [(ngModel)]="nuevoUsuario.correo">
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Contraseña" labelPlacement="floating"
+              type="password" placeholder="••••••••"
+              [(ngModel)]="nuevoUsuario.clave">
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Edad" labelPlacement="floating"
+              type="number" placeholder="ej: 25"
+              [(ngModel)]="nuevoUsuario.edad">
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Fecha de nacimiento" labelPlacement="floating"
+              type="date" [(ngModel)]="nuevoUsuario.fechaNacimiento">
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-select label="Rol" labelPlacement="floating"
+              [(ngModel)]="nuevoUsuario.rol">
+              <ion-select-option value="cliente">Cliente</ion-select-option>
+              <ion-select-option value="vendedor">Vendedor</ion-select-option>
+              <ion-select-option value="admin">Admin</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <!-- MODAL EDITAR ROL -->
+  <ion-modal [isOpen]="modalEditarAbierto" (didDismiss)="cerrarModalEditar()" [breakpoints]="[0, 0.4]" [initialBreakpoint]="0.4">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-buttons slot="start">
+            <ion-button (click)="cerrarModalEditar()">Cancelar</ion-button>
+          </ion-buttons>
+          <ion-title>Editar Rol</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="guardarRol()" strong>Guardar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="modal-content">
+        @if(usuarioEditando){
+          <ion-list>
+            <ion-item>
+              <ion-label>
+                <h2>{{ usuarioEditando.usuarioNombre }}</h2>
+                <p>{{ usuarioEditando.correo }}</p>
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-select label="Nuevo rol" labelPlacement="floating"
+                [(ngModel)]="rolSeleccionado">
+                <ion-select-option value="cliente">Cliente</ion-select-option>
+                <ion-select-option value="vendedor">Vendedor</ion-select-option>
+                <ion-select-option value="admin">Admin</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        }
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+</ion-content>

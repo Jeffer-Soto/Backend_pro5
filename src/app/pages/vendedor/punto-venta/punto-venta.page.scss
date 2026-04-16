@@ -1,0 +1,35 @@
+.seccion-titulo {
+  padding: 10px 16px 0px 16px;
+  h3 {
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    margin: 0;
+  }
+}
+
+.totales {
+  padding: 16px;
+  background: rgba(255,255,255,0.1);
+  margin: 16px;
+  border-radius: 12px;
+
+  p {
+    color: rgba(255,255,255,0.8);
+    margin: 4px 0;
+  }
+
+  h2 {
+    color: #ffd700;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 8px 0;
+  }
+}
+
+ion-card {
+  cursor: pointer;
+  ion-card-title {
+    font-size: 0.9rem;
+  }
+}

@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/admin/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Gestión de Comics</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="agregar()">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-list>
+    @for(comic of comics; track comic.id){
+      <ion-item>
+        <ion-label>
+          <h2>{{ comic.nombre }}</h2>
+          <p>{{ comic.edicion }} — ₡{{ comic.precioFinal }}</p>
+          <p>
+            <ion-badge [color]="comic.stock < 5 ? 'danger' : 'success'">
+              Stock: {{ comic.stock }}
+            </ion-badge>
+            <ion-badge color="primary" style="margin-left: 5px;">
+              {{ comic.version }}
+            </ion-badge>
+          </p>
+        </ion-label>
+
+        <!-- Botón editar -->
+        <ion-button slot="end" fill="clear" color="warning" (click)="editar(comic)">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-button>
+
+        <!-- Botón eliminar -->
+        <ion-button slot="end" fill="clear" color="danger" (click)="eliminar(comic)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+
+      </ion-item>
+    }
+  </ion-list>
+
+</ion-content>

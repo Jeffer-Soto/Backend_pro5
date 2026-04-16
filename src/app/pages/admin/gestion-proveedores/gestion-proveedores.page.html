@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/admin/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Gestión de Proveedores</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="agregar()">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-list>
+    @for(proveedor of proveedores; track proveedor.id){
+      <ion-item>
+        <ion-icon name="business-outline" slot="start" color="warning"></ion-icon>
+        <ion-label>
+          <h2>{{ proveedor.nombre }}</h2>
+          <p>{{ proveedor.correo }}</p>
+          <p>{{ proveedor.telefono }}</p>
+        </ion-label>
+
+        <ion-button slot="end" fill="clear" color="warning" (click)="editar(proveedor)">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button slot="end" fill="clear" color="danger" (click)="eliminar(proveedor)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    }
+
+    @if(proveedores.length === 0){
+      <ion-item>
+        <ion-label class="ion-text-center">
+          <p>No hay proveedores registrados</p>
+        </ion-label>
+      </ion-item>
+    }
+  </ion-list>
+
+</ion-content>

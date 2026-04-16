@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/cliente/list-comics"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Mi Carrito 🛒</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-list>
+    @for(item of items; track item.comic.id){
+      <ion-item>
+        <ion-label>
+          <h2>{{ item.comic.nombre }}</h2>
+          <p>₡{{ item.comic.precioFinal }} c/u</p>
+          <p><strong>Subtotal: ₡{{ item.subtotal }}</strong></p>
+        </ion-label>
+
+        <!-- Controles de cantidad -->
+        <div slot="end" class="cantidad-controls">
+          <ion-button fill="clear" color="danger" (click)="reducir(item)">
+            <ion-icon name="remove-outline"></ion-icon>
+          </ion-button>
+          <ion-text>{{ item.cantidad }}</ion-text>
+          <ion-button fill="clear" color="success" (click)="agregar(item)">
+            <ion-icon name="add-outline"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" color="danger" (click)="quitar(item)">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </div>
+
+      </ion-item>
+    }
+
+    @if(items.length === 0){
+      <ion-item>
+        <ion-label class="ion-text-center">
+          <ion-icon name="cart-outline" style="font-size: 3rem; color: rgba(255,255,255,0.3);"></ion-icon>
+          <p>Tu carrito está vacío</p>
+        </ion-label>
+      </ion-item>
+    }
+  </ion-list>
+
+  <!-- Totales -->
+  @if(items.length > 0){
+    <div class="totales">
+      <div class="fila">
+        <span>Subtotal:</span>
+        <span>₡{{ subtotal.toFixed(2) }}</span>
+      </div>
+      <div class="fila">
+        <span>IVA (13%):</span>
+        <span>₡{{ impuesto.toFixed(2) }}</span>
+      </div>
+      <div class="fila total">
+        <span>Total:</span>
+        <span>₡{{ total.toFixed(2) }}</span>
+      </div>
+
+      <ion-button expand="block" color="success" (click)="comprar()">
+        <ion-icon slot="start" name="cart-outline"></ion-icon>
+        Confirmar Compra
+      </ion-button>
+    </div>
+  }
+
+</ion-content>

@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Tienda Batarazo</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="irCarrito()">
+        <ion-icon slot="icon-only" name="bag-outline"></ion-icon>
+        @if(cantidadCarrito > 0){
+          <ion-badge color="danger">{{ cantidadCarrito }}</ion-badge>
+        }
+      </ion-button>
+      <ion-button (click)="misCompras()">
+        <ion-icon slot="icon-only" name="receipt-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="cerrarSesion()">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <!-- Barra de búsqueda -->
+  <ion-toolbar color="primary">
+    <ion-searchbar
+      [(ngModel)]="busqueda"
+      (ionInput)="buscar($event)"
+      placeholder="Buscar comics..."
+      animated>
+    </ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-grid>
+    @for(comic of comicsFiltrados; track comic.id){
+      <ion-row class="ion-align-items-center border-bottom" (click)="goToDetail(comic)">
+
+        <!-- Imagen del comic -->
+        <ion-col size="3">
+          @if(comic.portada){
+            <ion-img [src]="comic.portada" />
+          }@else{
+            <ion-img src="assets/img/no-image.png" />
+          }
+        </ion-col>
+
+        <!-- Nombre del comic -->
+        <ion-col size="5">
+          <ion-text>{{ comic.nombre }}</ion-text><br/>
+          <ion-text class="edicion">{{ comic.edicion }}</ion-text>
+        </ion-col>
+
+        <!-- Precio -->
+        <ion-col size="4">
+          <ion-text class="precio">₡{{ comic.precioFinal }}</ion-text>
+        </ion-col>
+
+      </ion-row>
+    }
+
+    @if(comicsFiltrados.length === 0){
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <p style="color: white; margin-top: 20px;">
+            No se encontraron comics
+          </p>
+        </ion-col>
+      </ion-row>
+    }
+  </ion-grid>
+
+  <ion-infinite-scroll threshold="50px" (ionInfinite)="loadComics($event)">
+    <ion-infinite-scroll-content
+      loadingText="Cargando..."
+      loadingSpinner="bubbles" />
+  </ion-infinite-scroll>
+
+</ion-content>
